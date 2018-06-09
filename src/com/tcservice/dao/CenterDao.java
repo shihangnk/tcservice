@@ -41,10 +41,4 @@ public class CenterDao extends DaoBase {
 
 		return list;
 	}
-
-	private void saveCenterList(List<Center> centerList) {
-		for (Center item : centerList) {
-			System.out.println("................ " + item.Id);
-		}
-	}
 }
