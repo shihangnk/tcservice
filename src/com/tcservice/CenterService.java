@@ -16,7 +16,7 @@ public class CenterService {
    CenterDao centerDao = new CenterDao();  
    @GET 
    @Path("/centers") 
-   @Produces(MediaType.APPLICATION_XML) 
+   @Produces(MediaType.APPLICATION_JSON) 
    public List<Center> getUsers(){ 
       return centerDao.getAllCenters(); 
    }  

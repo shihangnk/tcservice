@@ -17,6 +17,8 @@ public class Center {
 		return id;
 	}
 	
+	public Center(){}
+	
 	public Center(int id_){
 		id = id_;
 	}
