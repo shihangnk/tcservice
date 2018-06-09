@@ -41,4 +41,29 @@ public class CenterDao extends DaoBase {
 
 		return list;
 	}
+	
+	public Center getCenterById(int id) throws Exception{
+		sql = "select * from centers where id="+id;
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			for (; rs.next();) {
+				Center center = new Center();
+
+				center.Id = rs.getInt("Id");
+				center.Name = rs.getString("Name");
+				center.StreetAddress = rs.getString("StreetAddress");
+				center.CenterTypeId = rs.getInt("CenterTypeId");
+				center.CenterTypeValue = rs.getString("CenterTypeValue");
+
+				return center;
+			}
+			return null;
+		} catch (Exception ex) {
+			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+		} finally {
+			releaseConnection();
+		}
+	}
 }
