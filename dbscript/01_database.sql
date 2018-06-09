@@ -2,7 +2,7 @@ use tcservice;
 
 drop table Centers;
 CREATE TABLE Centers(
-	Id	int	identity(1,1) not null,
+	Id	int	not null,
 	Name nvarchar(30) NOT NULL,
 	StreetAddress nvarchar(30) NOT NULL,
 	CenterTypeId int NOT NULL,

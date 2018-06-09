@@ -37,9 +37,11 @@ public class DaoBase {
 	public java.sql.Connection getConnection() {
 
 		// Create a variable for the connection string.
-		String connectionUrl = "jdbc:sqlserver://localhost:1433;"
-				+ "databaseName=tcservice;user=sa;password=Abcd1234";
+//		String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+//				+ "databaseName=tcservice;user=tcservice;password=tcservice";
 
+		String connectionUrl = "jdbc:sqlite:C:/sqlite/db/tcservice.db";
+		
 		// Declare the JDBC objects.
 		conn = null;
 		stmt = null;
@@ -47,11 +49,14 @@ public class DaoBase {
 
 		try {
 			// Establish the connection.
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		//	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			Class.forName("org.sqlite.JDBC");
+			
 			conn = DriverManager.getConnection(connectionUrl);
-
+			System.out.println("Connection to SQLite has been established.");
+			
 			// Create and execute an SQL statement that returns some data.
-			String SQL = "SELECT TOP 10 * FROM centers";
+			String SQL = "SELECT * FROM centers";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(SQL);
 

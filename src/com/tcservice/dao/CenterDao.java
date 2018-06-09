@@ -72,8 +72,8 @@ public class CenterDao extends DaoBase {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			
+			int ret = stmt.executeUpdate(sql);
+			System.out.println(".............. inserted "+ret);
 			return getCenterById(center.Id);
 		} catch (Exception ex) {
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
