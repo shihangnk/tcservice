@@ -1,4 +1,4 @@
-package com.tcservice.service;
+package com.tcservice;
 
 import java.util.List; 
 
@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.tcservice.dao.CenterDao;
 import com.tcservice.model.Center;
+
 @Path("/CenterService") 
 
 public class CenterService {  

@@ -1,4 +1,4 @@
-package com.tcservice.service;
+package com.tcservice;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MyTestSErvice
+ * Servlet implementation class MyServlet
  */
-@WebServlet("/MyTestService")
-public class MyTestService extends HttpServlet {
+@WebServlet("/MyServlet")
+public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyTestService() {
+    public MyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,12 +27,12 @@ public class MyTestService extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	    // Must set the content type first
-	    response.setContentType("text/html");
+	    res.setContentType("text/html");
 	    // Now obtain a PrintWriter to insert HTML into
-	    PrintWriter out = response.getWriter();
+	    PrintWriter out = res.getWriter();
 	     out.println("<html><head><title>" +
 	                "Hello World!</title></head>");
 	    out.println("<body><h1>Hello World!</h1></body></html>");
