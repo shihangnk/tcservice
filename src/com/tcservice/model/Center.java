@@ -9,14 +9,6 @@ public class Center {
 	public int CenterTypeId;
 	public String CenterTypeValue;
 	
-/*	public void setId(int id_){
-		id = id_;
-	}
-	
-	public int getId(){
-		return id;
-	}
-*/	
 	public Center(){}
 	
 	public Center(int id_, String name, String streetAddress, int centerTypeId, String centerTypeValue){

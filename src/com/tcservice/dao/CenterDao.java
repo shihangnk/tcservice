@@ -13,19 +13,38 @@ import java.util.List;
 
 import com.tcservice.model.Center;
 
-public class CenterDao {
-	public List<Center> getAllCenters() {
-		List<Center> centerList = new LinkedList<Center>();
+public class CenterDao extends DaoBase {
+	public List<Center> getAllCenters() throws Exception{
+		List<Center> list = new LinkedList<Center>();
 		
-		for(int i = 0; i< 5; i++){
-			centerList.add(new Center());
+		sql = "select * from centers";
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			for (; rs.next();) {
+				Center center = new Center();
+
+				center.Id = rs.getInt("Id");
+				center.Name = rs.getString("Name");
+				center.StreetAddress = rs.getString("StreetAddress");
+				center.CenterTypeId = rs.getInt("CenterTypeId");
+				center.CenterTypeValue = rs.getString("CenterTypeValue");
+
+				list.add(center);
+			}
+		} catch (Exception ex) {
+			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+		} finally {
+			releaseConnection();
 		}
-		return centerList;
+
+		return list;
 	}
 
 	private void saveCenterList(List<Center> centerList) {
-		for(Center item : centerList){
-			System.out.println("................ "+item.Id);
+		for (Center item : centerList) {
+			System.out.println("................ " + item.Id);
 		}
 	}
 }

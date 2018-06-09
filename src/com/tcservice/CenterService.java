@@ -16,8 +16,13 @@ public class CenterService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Center> getAllCenters() {
-		return centerDao.getAllCenters();
+	public Response getAllCenters() {
+		try{
+//			return centerDao.getAllCenters();
+			return Response.status(500).entity(centerDao.getAllCenters()).build();
+		}catch(Exception ex){
+			return Response.status(500).entity(ex.getMessage()).build();
+		}
 	}
 
 	@GET
