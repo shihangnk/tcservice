@@ -16,25 +16,39 @@ public class CenterService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Center> getUsers() {
+	public List<Center> getAllCenters() {
 		return centerDao.getAllCenters();
 	}
 
 	@GET
 	@Path("/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Center getMsg(@PathParam("param") String msg) {
+	public Response getSingleCenter(@PathParam("param") String msg) {
 		String output = "Jersey say : " + msg;
-		return new Center(2);
+		return Response.ok().entity(new Center(2)).build();
 	}
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-    @NotNull(message = "{contact.already.exist}")
-    public Response addContact(final Center center) {
+    public Response addCenter(final Center center) {
     	center.setId(center.getId()+1);
     	return Response.status(201).entity(center).build();
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+    public Response updateCenter(final Center center) {
+    	center.setId(center.getId()+1);
+    	return Response.status(200).entity(center).build();
+    }
+
+	@DELETE
+	@Path("/{param}")
+	public Response deleteCenter(@PathParam("param") String msg) {
+		String output = "Jersey say : " + msg;
+		return Response.status(202).entity("Element deleted successfully!").build();
+	}
 
 }
