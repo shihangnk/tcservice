@@ -18,14 +18,14 @@ public class CenterDao {
 		List<Center> centerList = new LinkedList<Center>();
 		
 		for(int i = 0; i< 5; i++){
-			centerList.add(new Center(i));
+			centerList.add(new Center());
 		}
 		return centerList;
 	}
 
 	private void saveCenterList(List<Center> centerList) {
 		for(Center item : centerList){
-			System.out.println("................ "+item.getId());
+			System.out.println("................ "+item.Id);
 		}
 	}
 }

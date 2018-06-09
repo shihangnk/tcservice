@@ -25,14 +25,14 @@ public class CenterService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSingleCenter(@PathParam("param") String msg) {
 		String output = "Jersey say : " + msg;
-		return Response.ok().entity(new Center(2)).build();
+		return Response.ok().entity(new Center(2, "name", "address", 1, "5")).build();
 	}
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
     public Response addCenter(final Center center) {
-    	center.setId(center.getId()+1);
+    	center.Id = center.Id+1;
     	return Response.status(201).entity(center).build();
     }
 
@@ -40,7 +40,7 @@ public class CenterService {
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
     public Response updateCenter(final Center center) {
-    	center.setId(center.getId()+1);
+    	center.Id = center.Id+1;
     	return Response.status(200).entity(center).build();
     }
 
