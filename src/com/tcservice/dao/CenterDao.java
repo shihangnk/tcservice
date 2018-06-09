@@ -34,6 +34,7 @@ public class CenterDao extends DaoBase {
 				list.add(center);
 			}
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
 			releaseConnection();
@@ -61,6 +62,7 @@ public class CenterDao extends DaoBase {
 			}
 			return null;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
 			releaseConnection();
@@ -76,6 +78,7 @@ public class CenterDao extends DaoBase {
 			System.out.println(".............. inserted "+ret);
 			return getCenterById(center.Id);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
 			releaseConnection();
@@ -87,9 +90,10 @@ public class CenterDao extends DaoBase {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			
-			sql = "delete centers where id="+id;
+			sql = "delete from centers where id="+id;
 			stmt.executeUpdate(sql);
 		}catch(Exception ex){
+			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		}finally{
 			releaseConnection();
