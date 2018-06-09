@@ -66,4 +66,33 @@ public class CenterDao extends DaoBase {
 			releaseConnection();
 		}
 	}
+	
+	public Center insertCenter(Center center) throws Exception{
+		sql = "insert into Centers values("+center.Id+", '"+center.Name+"', '"+center.StreetAddress+"', "+center.CenterTypeId+", '"+center.CenterTypeValue+"')";
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+			
+			return getCenterById(center.Id);
+		} catch (Exception ex) {
+			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+		} finally {
+			releaseConnection();
+		}
+	}
+	
+	public void deleteCenter(int id)throws Exception{
+		try{
+			conn = getConnection();
+			stmt = conn.createStatement();
+			
+			sql = "delete centers where id="+id;
+			stmt.executeUpdate(sql);
+		}catch(Exception ex){
+			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+		}finally{
+			releaseConnection();
+		}
+	}
 }
