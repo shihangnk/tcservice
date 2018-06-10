@@ -1,143 +1,173 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "0f10d081-250f-4d26-aaa9-a8766b2a3562",
 		"name": "tcservice",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "0f10d081-250f-4d26-aaa9-a8766b2a3562",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "get",
+			"name": "get center",
 			"request": {
+				"url": "http://localhost:8080/tcservice/rest/centers/9",
 				"method": "GET",
 				"header": [],
 				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/tcservice/rest/centers/4",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"tcservice",
-						"rest",
-						"centers",
-						"4"
-					]
-				}
+				"description": null
 			},
 			"response": []
 		},
 		{
-			"name": "get all",
+			"name": "get appointment",
 			"request": {
+				"url": "http://localhost:8080/tcservice/rest/appointments/4",
 				"method": "GET",
 				"header": [],
 				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/tcservice/rest/centers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"tcservice",
-						"rest",
-						"centers"
-					]
-				}
+				"description": null
 			},
 			"response": []
 		},
 		{
-			"name": "post",
+			"name": "get all centers",
 			"request": {
+				"url": "http://localhost:8080/tcservice/rest/centers",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "get all appointments",
+			"request": {
+				"url": "http://localhost:8080/tcservice/rest/appointments",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "post center",
+			"request": {
+				"url": "http://localhost:8080/tcservice/rest/centers",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/json",
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"Id\": 8,\n    \"Name\": \"name\",\n    \"StreetAddress\": \"street\",\n    \"CenterTypeId\": 2,\n    \"CenterTypeValue\": \"type 2\"\n}\n"
+					"raw": "{\n    \"Id\": 9,\n    \"Name\": \"name999\",\n    \"StreetAddress\": \"street\",\n    \"CenterTypeId\": 2,\n    \"CenterTypeValue\": \"type 2\"\n}\n"
 				},
-				"url": {
-					"raw": "http://localhost:8080/tcservice/rest/centers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"tcservice",
-						"rest",
-						"centers"
-					]
-				}
+				"description": null
 			},
 			"response": []
 		},
 		{
-			"name": "put",
+			"name": "post appointment",
 			"request": {
+				"url": "http://localhost:8080/tcservice/rest/appointments",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ClientFullName\": \"full name\",\n    \"Date\": \"2018-09-09\",\n    \"CenterId\": 9\n}"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "put appointment",
+			"request": {
+				"url": "http://localhost:8080/tcservice/rest/appointments/5",
 				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/json",
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"Id\": 8,\n    \"Name\": \"name\",\n    \"StreetAddress\": \"street\",\n    \"CenterTypeId\": 2,\n    \"CenterTypeValue\": \"type 2\"\n}\n"
+					"raw": "{\n\t\"Id\": 5,\n\t\"ClientFullName\": \"full name\",\n    \"Date\": \"2018-09-11\",\n    \"CenterId\": 9\n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/tcservice/rest/centers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"tcservice",
-						"rest",
-						"centers"
-					]
-				}
+				"description": null
 			},
 			"response": []
 		},
 		{
-			"name": "delete",
+			"name": "put center",
 			"request": {
-				"method": "DELETE",
+				"url": "http://localhost:8080/tcservice/rest/centers",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/json",
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": 8\n}"
+					"raw": "{\n    \"Id\": 9,\n    \"Name\": \"na00msdsfsdsde\",\n    \"StreetAddress\": \"street\",\n    \"CenterTypeId\": 2\n}\n"
 				},
-				"url": {
-					"raw": "http://localhost:8080/tcservice/rest/centers/3",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"tcservice",
-						"rest",
-						"centers",
-						"3"
-					]
-				}
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "delete center",
+			"request": {
+				"url": "http://localhost:8080/tcservice/rest/centers/8",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 8\n}"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "delete appointment",
+			"request": {
+				"url": "http://localhost:8080/tcservice/rest/appointments/5",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 8\n}"
+				},
+				"description": null
 			},
 			"response": []
 		}

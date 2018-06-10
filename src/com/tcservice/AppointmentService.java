@@ -53,15 +53,19 @@ public class AppointmentService {
     }
 
     @PUT
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-    public Response updateAppointment(final Appointment appointment) {
+    public Response updateAppointment(@PathParam("id") int id, final Appointment appointment) {
 		try{
-			if(appointmentDao.getAppointmentById(appointment.Id)==null){
+			if(id!=appointment.Id){
+				return Response.status(400).entity("Ids are not match").build();
+			}
+			
+			if(appointmentDao.getAppointmentById(id)==null){
 				return Response.status(404).entity("No such resource!").build();
 			}
-			appointmentDao.deleteAppointment(appointment.Id);
-			return Response.status(200).entity(appointmentDao.insertAppointment(appointment)).build();
+			return Response.status(200).entity(appointmentDao.updateAppointment(appointment)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}

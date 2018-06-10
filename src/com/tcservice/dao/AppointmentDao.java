@@ -99,6 +99,27 @@ public class AppointmentDao extends DaoBase {
 		}
 	}
 
+	public AppointmentView updateAppointment(Appointment appointment) throws Exception{
+		sql = "update Appointments set ClientFullName='"+appointment.ClientFullName+"', AppointmentDate='"+appointment.Date+"', CenterId="+appointment.CenterId+" where Id="+appointment.Id;
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+			int ret = stmt.executeUpdate(sql);
+			System.out.println(".............. inserted "+ret +"["+sql+"]");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+		} finally {
+			releaseConnection();
+		}
+		try{
+			return getAppointmentById(appointment.Id);
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+		}
+	}
+
 	public void deleteAppointment(int id) throws Exception {
 		try {
 			conn = getConnection();
