@@ -46,13 +46,12 @@ public class AppointmentService {
 	@Produces(MediaType.APPLICATION_JSON)
     public Response insertAppointment(final Appointment appointment) {
 		try{
-			System.out.println("............. insert 1");
 			return Response.status(201).entity(appointmentDao.insertAppointment(appointment)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
     }
-/*
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,7 +61,7 @@ public class AppointmentService {
 				return Response.status(404).entity("No such resource!").build();
 			}
 			appointmentDao.deleteAppointment(appointment.Id);
-			return Response.status(201).entity(appointmentDao.insertAppointment(appointment)).build();
+			return Response.status(200).entity(appointmentDao.insertAppointment(appointment)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -81,5 +80,4 @@ public class AppointmentService {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
 	}
-	*/
 }

@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.tcservice.model.Appointment;
-import com.tcservice.model.Center;
 import com.tcservice.view.AppointmentView;
 import com.tcservice.view.CenterView;
 
@@ -100,12 +99,12 @@ public class AppointmentDao extends DaoBase {
 		}
 	}
 
-	public void deleteCenter(int id) throws Exception {
+	public void deleteAppointment(int id) throws Exception {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
 
-			sql = "delete from centers where id=" + id;
+			sql = "delete from appointments where id=" + id;
 			stmt.executeUpdate(sql);
 		} catch (Exception ex) {
 			ex.printStackTrace();
