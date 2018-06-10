@@ -10,16 +10,16 @@ import com.tcservice.view.AppointmentView;
 import com.tcservice.view.CenterView;
 
 public class AppointmentDao extends DaoBase {
-	
-	private final String selectSql = "select t1.Id Id, T1.ClientFullName ClientFullName,"+
-			" t1.AppointmentDate AppointmentDate, t2.Id CenterId, t2.Name Name,"+
-			" t2.StreetAddress StreetAddress, t3.Name CenterTypeValue "+
-			" from Appointments t1 left join Centers t2 on t1.CenterId=t2.Id "+
-			" left join CenterTypes t3 on t2.CenterTypeId=t3.Id";
 
-	public List<AppointmentView> getAllAppointments() throws Exception{
+	private final String selectSql = "select t1.Id Id, T1.ClientFullName ClientFullName,"
+			+ " t1.AppointmentDate AppointmentDate, t2.Id CenterId, t2.Name Name,"
+			+ " t2.StreetAddress StreetAddress, t3.Name CenterTypeValue "
+			+ " from Appointments t1 left join Centers t2 on t1.CenterId=t2.Id "
+			+ " left join CenterTypes t3 on t2.CenterTypeId=t3.Id";
+
+	public List<AppointmentView> getAllAppointments() throws Exception {
 		List<AppointmentView> list = new LinkedList<AppointmentView>();
-		
+
 		sql = selectSql + " order by t1.Id";
 		try {
 			conn = getConnection();
@@ -30,7 +30,7 @@ public class AppointmentDao extends DaoBase {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+			throw new Exception(ex.getMessage() + "   [" + sql + "]");
 		} finally {
 			releaseConnection();
 		}
@@ -44,18 +44,18 @@ public class AppointmentDao extends DaoBase {
 		appointment.Id = rs.getInt("Id");
 		appointment.ClientFullName = rs.getString("ClientFullName");
 		appointment.Date = rs.getString("AppointmentDate");
-		
+
 		CenterView center = new CenterView();
-		center.Id = rs.getInt("Id");
+		center.Id = rs.getInt("CenterId");
 		center.Name = rs.getString("Name");
 		center.StreetAddress = rs.getString("StreetAddress");
-		center.CenterTypeValue = rs.getString("CenterTypeValue");				
+		center.CenterTypeValue = rs.getString("CenterTypeValue");
 		appointment.Center = center;
 		return appointment;
 	}
-	
-	public AppointmentView getAppointmentById(int id) throws Exception{
-		sql = selectSql + " where t1.Id="+id;
+
+	public AppointmentView getAppointmentById(int id) throws Exception {
+		sql = selectSql + " where t1.Id=" + id;
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
@@ -66,39 +66,51 @@ public class AppointmentDao extends DaoBase {
 			return null;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new Exception(ex.getMessage() + "   ["+sql+"]");
+			throw new Exception(ex.getMessage() + "   [" + sql + "]");
 		} finally {
 			releaseConnection();
 		}
 	}
-	
+
 	public AppointmentView insertAppointment(Appointment appointment) throws Exception{
 		sql = "insert into Appointments(ClientFullName, AppointmentDate, CenterId) values('"+appointment.ClientFullName+"', '"+appointment.Date+"', "+appointment.CenterId+")";
+		int newId=0;
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			int ret = stmt.executeUpdate(sql);
 			System.out.println(".............. inserted "+ret);
-			return getAppointmentById(0);
+			
+			sql = "select max(Id) Id from Appointments;";
+			rs = stmt.executeQuery(sql);
+			for (; rs.next();) {
+				newId = rs.getInt("Id");
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
 			releaseConnection();
 		}
-	}
-	
-	public void deleteCenter(int id)throws Exception{
 		try{
-			conn = getConnection();
-			stmt = conn.createStatement();
-			
-			sql = "delete from centers where id="+id;
-			stmt.executeUpdate(sql);
+			return getAppointmentById(newId);
 		}catch(Exception ex){
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
-		}finally{
+		}
+	}
+
+	public void deleteCenter(int id) throws Exception {
+		try {
+			conn = getConnection();
+			stmt = conn.createStatement();
+
+			sql = "delete from centers where id=" + id;
+			stmt.executeUpdate(sql);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new Exception(ex.getMessage() + "   [" + sql + "]");
+		} finally {
 			releaseConnection();
 		}
 	}

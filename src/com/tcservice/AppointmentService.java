@@ -7,8 +7,7 @@ import javax.ws.rs.core.*;
 import javax.validation.constraints.*;
 
 import com.tcservice.dao.AppointmentDao;
-import com.tcservice.dao.CenterDao;
-import com.tcservice.model.Center;
+import com.tcservice.model.Appointment;
 import com.tcservice.view.AppointmentView;
 import com.tcservice.view.CenterView;
 
@@ -30,7 +29,7 @@ public class AppointmentService {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCenterById(@PathParam("id") int id) {
+	public Response getAppointmentById(@PathParam("id") int id) {
 		try{
 			AppointmentView appointment = appointmentDao.getAppointmentById(id);
 			if(appointment!=null){
@@ -41,29 +40,29 @@ public class AppointmentService {
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
 	}
-/*
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-    public Response insertCenter(final Center center) {
+    public Response insertAppointment(final Appointment appointment) {
 		try{
 			System.out.println("............. insert 1");
-			return Response.status(200).entity(appointmentDao.insertCenter(center)).build();
+			return Response.status(201).entity(appointmentDao.insertAppointment(appointment)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
     }
-
+/*
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-    public Response updateCenter(final Center center) {
+    public Response updateAppointment(final Appointment appointment) {
 		try{
-			if(appointmentDao.getCenterById(center.Id)==null){
+			if(appointmentDao.getAppointmentById(appointment.Id)==null){
 				return Response.status(404).entity("No such resource!").build();
 			}
-			appointmentDao.deleteCenter(center.Id);
-			return Response.status(201).entity(appointmentDao.insertCenter(center)).build();
+			appointmentDao.deleteAppointment(appointment.Id);
+			return Response.status(201).entity(appointmentDao.insertAppointment(appointment)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -71,12 +70,12 @@ public class AppointmentService {
 
 	@DELETE
 	@Path("/{id}")
-	public Response deleteCenter(@PathParam("id") int id) {
+	public Response deleteAppointment(@PathParam("id") int id) {
 		try{
-			if(appointmentDao.getCenterById(id)==null){
+			if(appointmentDao.getAppointmentById(id)==null){
 				return Response.status(404).entity("No such resource!").build();
 			}
-			appointmentDao.deleteCenter(id);
+			appointmentDao.deleteAppointment(id);
 			return Response.status(202).entity("Resource deleted successfully!").build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();

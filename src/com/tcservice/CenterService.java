@@ -46,7 +46,7 @@ public class CenterService {
     public Response insertCenter(final Center center) {
 		try{
 			System.out.println("............. insert 1");
-			return Response.status(200).entity(centerDao.insertCenter(center)).build();
+			return Response.status(201).entity(centerDao.insertCenter(center)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
@@ -61,7 +61,7 @@ public class CenterService {
 				return Response.status(404).entity("No such resource!").build();
 			}
 			centerDao.deleteCenter(center.Id);
-			return Response.status(201).entity(centerDao.insertCenter(center)).build();
+			return Response.status(200).entity(centerDao.insertCenter(center)).build();
 		}catch(Exception ex){
 			return Response.status(500).entity(ex.getMessage()).build();
 		}
