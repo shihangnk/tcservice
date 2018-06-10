@@ -1,32 +1,32 @@
 package com.tcservice.dao;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.tcservice.model.Appointment;
 import com.tcservice.model.Center;
+import com.tcservice.view.AppointmentView;
 import com.tcservice.view.CenterView;
 
 public class AppointmentDao extends DaoBase {
 	
-	private final String selectSql = "select t1.Id Id, t1.Name name, t1.StreetAddress StreetAddress, t2.Name CenterTypeValue from centers t1 left join CenterTypes t2 on t1.CenterTypeId=t2.Id";
+	private final String selectSql = "select t1.Id Id, T1.ClientFullName ClientFullName,"+
+			" t1.AppointmentDate AppointmentDate, t2.Id CenterId, t2.Name Name,"+
+			" t2.StreetAddress StreetAddress, t3.Name CenterTypeValue "+
+			" from Appointments t1 left join Centers t2 on t1.CenterId=t2.Id "+
+			" left join CenterTypes t3 on t2.CenterTypeId=t3.Id";
 
-	public List<CenterView> getAllCenters() throws Exception{
-		List<CenterView> list = new LinkedList<CenterView>();
+	public List<AppointmentView> getAllAppointments() throws Exception{
+		List<AppointmentView> list = new LinkedList<AppointmentView>();
 		
-		sql = selectSql;
+		sql = selectSql + " order by t1.Id";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			for (; rs.next();) {
-				CenterView center = new CenterView();
-
-				center.Id = rs.getInt("Id");
-				center.Name = rs.getString("Name");
-				center.StreetAddress = rs.getString("StreetAddress");
-				center.CenterTypeValue = rs.getString("CenterTypeValue");
-
-				list.add(center);
+				list.add(getAppointmentViewFromRs());
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -37,22 +37,31 @@ public class AppointmentDao extends DaoBase {
 
 		return list;
 	}
+
+	private AppointmentView getAppointmentViewFromRs() throws SQLException {
+		AppointmentView appointment = new AppointmentView();
+
+		appointment.Id = rs.getInt("Id");
+		appointment.ClientFullName = rs.getString("ClientFullName");
+		appointment.Date = rs.getString("AppointmentDate");
+		
+		CenterView center = new CenterView();
+		center.Id = rs.getInt("Id");
+		center.Name = rs.getString("Name");
+		center.StreetAddress = rs.getString("StreetAddress");
+		center.CenterTypeValue = rs.getString("CenterTypeValue");				
+		appointment.Center = center;
+		return appointment;
+	}
 	
-	public CenterView getCenterById(int id) throws Exception{
-		sql = selectSql + " where Id="+id;
+	public AppointmentView getAppointmentById(int id) throws Exception{
+		sql = selectSql + " where t1.Id="+id;
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			for (; rs.next();) {
-				CenterView center = new CenterView();
-
-				center.Id = rs.getInt("Id");
-				center.Name = rs.getString("Name");
-				center.StreetAddress = rs.getString("StreetAddress");
-				center.CenterTypeValue = rs.getString("CenterTypeValue");
-
-				return center;
+				return getAppointmentViewFromRs();
 			}
 			return null;
 		} catch (Exception ex) {
@@ -63,14 +72,14 @@ public class AppointmentDao extends DaoBase {
 		}
 	}
 	
-	public CenterView insertCenter(Center center) throws Exception{
-		sql = "insert into Centers values("+center.Id+", '"+center.Name+"', '"+center.StreetAddress+"', "+center.CenterTypeId+")";
+	public AppointmentView insertAppointment(Appointment appointment) throws Exception{
+		sql = "insert into Appointments(ClientFullName, AppointmentDate, CenterId) values('"+appointment.ClientFullName+"', '"+appointment.Date+"', "+appointment.CenterId+")";
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
 			int ret = stmt.executeUpdate(sql);
 			System.out.println(".............. inserted "+ret);
-			return getCenterById(center.Id);
+			return getAppointmentById(0);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
