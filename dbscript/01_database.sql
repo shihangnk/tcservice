@@ -20,11 +20,10 @@ CREATE TABLE Centers(
 );
 
 Create table Appointments(
-	Id int not null,
+	Id INTEGER PRIMARY KEY AUTOINCREMENT,
 	ClientFullName nvarchar(500) not null,
 	AppointmentDate nvarchar(500) not null,
 	CenterId int not null,
-	Primary Key(Id),
 	FOREIGN KEY(CenterId) REFERENCES Centers(Id)	
 );
 
