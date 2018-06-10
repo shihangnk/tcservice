@@ -6,14 +6,14 @@ import java.util.List;
 import com.tcservice.model.Center;
 import com.tcservice.view.CenterView;
 
-public class CenterDao extends DaoBase {
+public class AppointmentDao extends DaoBase {
 	
 	private final String selectSql = "select t1.Id Id, t1.Name name, t1.StreetAddress StreetAddress, t2.Name CenterTypeValue from centers t1 left join CenterTypes t2 on t1.CenterTypeId=t2.Id";
 
 	public List<CenterView> getAllCenters() throws Exception{
 		List<CenterView> list = new LinkedList<CenterView>();
 		
-		sql = selectSql + " order by t1.Id";
+		sql = selectSql;
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
@@ -29,7 +29,6 @@ public class CenterDao extends DaoBase {
 				list.add(center);
 			}
 		} catch (Exception ex) {
-			System.out.println("..........["+sql+"]");
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
@@ -40,7 +39,7 @@ public class CenterDao extends DaoBase {
 	}
 	
 	public CenterView getCenterById(int id) throws Exception{
-		sql = selectSql + " where t1.Id="+id;
+		sql = selectSql + " where Id="+id;
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
@@ -57,7 +56,6 @@ public class CenterDao extends DaoBase {
 			}
 			return null;
 		} catch (Exception ex) {
-			System.out.println("..........["+sql+"]");
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
@@ -74,7 +72,6 @@ public class CenterDao extends DaoBase {
 			System.out.println(".............. inserted "+ret);
 			return getCenterById(center.Id);
 		} catch (Exception ex) {
-			System.out.println("..........["+sql+"]");
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		} finally {
@@ -90,7 +87,6 @@ public class CenterDao extends DaoBase {
 			sql = "delete from centers where id="+id;
 			stmt.executeUpdate(sql);
 		}catch(Exception ex){
-			System.out.println("..........["+sql+"]");
 			ex.printStackTrace();
 			throw new Exception(ex.getMessage() + "   ["+sql+"]");
 		}finally{

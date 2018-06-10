@@ -1,10 +1,10 @@
-package com.tcservice.model;
+package com.tcservice.view;
 
 import java.io.Serializable;  
 
-public class Center {
+public class CenterView {
 	public int Id;
 	public String Name;
 	public String StreetAddress;
-	public int CenterTypeId;
+	public String CenterTypeValue;
 }

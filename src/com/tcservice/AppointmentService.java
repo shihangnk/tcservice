@@ -11,8 +11,8 @@ import com.tcservice.model.Center;
 import com.tcservice.view.CenterView;
 
 // case sensitive
-@Path("/centers")
-public class CenterService {
+@Path("/appointments")
+public class AppointmentService {
 	CenterDao centerDao = new CenterDao();
 
 	@GET
